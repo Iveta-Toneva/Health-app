@@ -4,26 +4,48 @@ import { Button, CardHeader, Card, Radio, FormLabel, RadioGroup, FormControlLabe
 
 
 export default function FormPropsTextFields() {
+
+
+    const [values, setValues] = React.useState({
+        gender: '',
+        age: '',
+        height: '',
+        weight: '',
+        activity: ''
+
+    });
+
+    const onChangeHandler = (e) => {
+        setValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    }
+
+    const calculate = () => {
+        const { gender, age, height, weight, activity } = values;
+        console.log('User Input:', values);
+    }
+
     return (
-        <Card component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2,  margin: 2 ,padding:2,width: { xs: '90%', sm: '70%', md: '50%' }}}>
+        <Card component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, margin: 2, padding: 2, width: { xs: '90%', sm: '70%', md: '50%' } }}>
             <CardHeader title="Calorie Calculator" />
-            <TextField label="Age" variant="outlined" />
+            <TextField label="Age" variant="outlined" name='age' onChange={onChangeHandler} />
             <FormLabel id="gender-label">Gender</FormLabel>
             <RadioGroup
                 aria-labelledby="gender-label"
                 defaultValue="female"
                 name="gender"
+                onChange={onChangeHandler}
             >
                 <FormControlLabel value="female" control={<Radio />} label="Female" />
                 <FormControlLabel value="male" control={<Radio />} label="Male" />
             </RadioGroup>
-            <TextField label="Height" variant="outlined" />
-            <TextField label="Weight" variant="outlined" />
+            <TextField label="Height" variant="outlined" name='height' onChange={onChangeHandler} />
+            <TextField label="Weight" variant="outlined" name='weight' onChange={onChangeHandler} />
             <FormLabel id="activity-label">Activity</FormLabel>
             <RadioGroup
                 aria-labelledby="activity-label"
                 defaultValue="BMR"
                 name="activity"
+                onChange={onChangeHandler}
             >
                 <FormControlLabel value="BMR" control={<Radio />} label="BMR , which represents the calories your body burns at rest." />
                 <FormControlLabel value="Sedentary" control={<Radio />} label="Sedentary: Little to no exercise." />
@@ -33,7 +55,7 @@ export default function FormPropsTextFields() {
                 <FormControlLabel value="Extra active" control={<Radio />} label="Extra active: Very hard exercise/sports & a physical job." />
                 <FormControlLabel value="Professional athlete" control={<Radio />} label="Professional athlete." />
             </RadioGroup>
-            <Button variant="contained">Calculate</Button>
+            <Button variant="contained" onClick={calculate}>Calculate</Button>
         </Card>
     );
 }
