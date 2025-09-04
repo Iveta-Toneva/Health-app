@@ -1,5 +1,5 @@
 export default function Home() {
     return (
-        <p>Home page </p>
+        <p>Everything about your healt in one place. </p>
     )
 }
